@@ -9,7 +9,13 @@ function Navigation({ isLoaded }) {
 	return (
 		<ul>
 			<li>
-				<NavLink to="/">Home</NavLink>
+				<NavLink to="/">
+					<img
+						src="../../../../public/favicon.ico"
+						alt="App Logo"
+						class="logo"
+					/>
+				</NavLink>
 			</li>
 			{isLoaded && (
 				<li>

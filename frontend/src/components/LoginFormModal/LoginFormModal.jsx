@@ -24,6 +24,22 @@ function LoginFormModal() {
 			});
 	};
 
+	const isDisabled = credential.length < 4 || password.length < 6;
+	const handleDemoUser = (e) => {
+		e.preventDefault();
+		setErrors({});
+		return dispatch(
+			sessionActions.login({ credential: 'Demo-lition', password: 'password' })
+		)
+			.then(closeModal)
+			.catch(async (res) => {
+				const data = await res.json();
+				if (data && data.errors) {
+					setErrors(data.errors);
+				}
+			});
+	};
+
 	return (
 		<>
 			<h1>Log In</h1>
@@ -47,8 +63,11 @@ function LoginFormModal() {
 					/>
 				</label>
 				{errors.credential && <p>{errors.credential}</p>}
-				<button type="submit">Log In</button>
+				<button type="submit" disabled={isDisabled}>
+					Log In
+				</button>
 			</form>
+			<button onClick={handleDemoUser}>Log in with Demo User</button>
 		</>
 	);
 }
