@@ -11,7 +11,6 @@ export const getAllSpots = () => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		const spotsArray = data.Spots;
-		console.log('IN FETCH', spotsArray);
 		dispatch(loadAll(spotsArray));
 	}
 };
@@ -23,7 +22,6 @@ const initialState = {
 const spotsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD_ALL: {
-			console.log('IN ACTION', action.spots);
 			return {
 				...state,
 				all: action.spots,
