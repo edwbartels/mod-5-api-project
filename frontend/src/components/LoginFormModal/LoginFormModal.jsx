@@ -25,6 +25,7 @@ function LoginFormModal() {
 	};
 
 	const isDisabled = credential.length < 4 || password.length < 6;
+
 	const handleDemoUser = (e) => {
 		e.preventDefault();
 		setErrors({});
