@@ -52,12 +52,23 @@ router.get('/', validateQueryParams, async (req, res, next) => {
 	const spots = await Spot.findAll({
 		// where: where,
 		attributes: {
+			// TODO: Fix literal to work in both dev & production
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 		SELECT AVG("air_bnb_schema"."Reviews".stars)
+			// 		FROM "air_bnb_schema"."Reviews"
+			// 		WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+			// 	)`),
+			// 		'avgRating',
+			// 	],
+			// ],
 			include: [
 				[
 					Sequelize.literal(`(
-					SELECT AVG("air_bnb_schema"."Reviews".stars)
-					FROM "air_bnb_schema"."Reviews"
-					WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+					SELECT AVG("Reviews".stars)
+					FROM "Reviews"
+					WHERE "Reviews"."spotId" = "Spot"."id"
 				)`),
 					'avgRating',
 				],
@@ -122,12 +133,23 @@ router.get('/current', requireAuth, async (req, res, next) => {
 			ownerId: user.id,
 		},
 		attributes: {
+			// TODO: Fix literal to work in both dev & production
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 		SELECT AVG("air_bnb_schema"."Reviews".stars)
+			// 		FROM "air_bnb_schema"."Reviews"
+			// 		WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+			// 	)`),
+			// 		'avgRating',
+			// 	],
+			// ],
 			include: [
 				[
 					Sequelize.literal(`(
-					SELECT AVG("air_bnb_schema"."Reviews".stars)
-					FROM "air_bnb_schema"."Reviews"
-					WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+					SELECT AVG("Reviews".stars)
+					FROM "Reviews"
+					WHERE "Reviews"."spotId" = "Spot"."id"
 				)`),
 					'avgRating',
 				],
@@ -179,20 +201,40 @@ router.get('/current', requireAuth, async (req, res, next) => {
 router.get('/:spotId', async (req, res, next) => {
 	const spot = await Spot.findByPk(req.params.spotId, {
 		attributes: {
+			// TODO: fix literals to function in both dev/prod
+
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 	SELECT AVG("air_bnb_schema"."Reviews".stars)
+			// 	FROM "air_bnb_schema"."Reviews"
+			// 	WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+			// )`),
+			// 		'avgRating',
+			// 	],
+			// 	[
+			// 		Sequelize.literal(`(
+			// 	SELECT COUNT("air_bnb_schema"."Reviews".stars)
+			// 	FROM "air_bnb_schema"."Reviews"
+			// 	WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+			// )`),
+			// 		'numReviews',
+			// 	],
+			// ],
 			include: [
 				[
 					Sequelize.literal(`(
-				SELECT AVG("air_bnb_schema"."Reviews".stars)
-				FROM "air_bnb_schema"."Reviews"
-				WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+				SELECT AVG("Reviews".stars)
+				FROM "Reviews"
+				WHERE "Reviews"."spotId" = "Spot"."id"
 			)`),
 					'avgRating',
 				],
 				[
 					Sequelize.literal(`(
-				SELECT COUNT("air_bnb_schema"."Reviews".stars)
-				FROM "air_bnb_schema"."Reviews"
-				WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+				SELECT COUNT("Reviews".stars)
+				FROM "Reviews"
+				WHERE "Reviews"."spotId" = "Spot"."id"
 			)`),
 					'numReviews',
 				],

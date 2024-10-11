@@ -1,0 +1,6 @@
+{
+	"watch": ["db", "routes", "utils"],
+	"ext": "js,json,jsx",
+	"ignore": ["node_modules"],
+	"legacyWatch": true
+}
