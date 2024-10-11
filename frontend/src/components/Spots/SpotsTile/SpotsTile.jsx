@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
 import './SpotsTile.css';
 
 const SpotsTile = ({ spot }) => {
@@ -8,6 +9,10 @@ const SpotsTile = ({ spot }) => {
 	const handleClick = () => {
 		navigate(`spots/${spot.id}`);
 	};
+	const formattedRating = new Intl.NumberFormat('en-US', {
+		minimumFractionDigits: 1,
+		maximumFractionDigits: 2,
+	}).format(spot.avgRating);
 
 	return (
 		<li className="spot-details" onClick={handleClick}>
@@ -20,7 +25,10 @@ const SpotsTile = ({ spot }) => {
 				</li>
 				<li>
 					<span>{spot.name}</span>
-					<span>{spot.avgRating || 'New'}</span>
+					<span>
+						<FaStar />
+						{formattedRating || 'New'}
+					</span>
 				</li>
 				<li>
 					<span>
