@@ -1,4 +1,5 @@
 const LOAD_ALL = 'spots/LOAD_ALL';
+const LOAD_BY_ID = 'spots/LOAD_BY_ID';
 
 const loadAll = (spots) => ({
 	type: LOAD_ALL,
@@ -15,6 +16,21 @@ export const getAllSpots = () => async (dispatch) => {
 	}
 };
 
+const loadById = (spot) => ({
+	type: LOAD_BY_ID,
+	spot,
+});
+
+export const getSpotById = (id) => async (dispatch) => {
+	const response = await fetch(`/api/spots/${id}`);
+
+	if (response.ok) {
+		const spot = await response.json();
+		console.log('IN FETCH', spot);
+		dispatch(loadById(spot));
+	}
+};
+
 const initialState = {
 	all: [],
 };
@@ -25,6 +41,12 @@ const spotsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				all: action.spots,
+			};
+		}
+		case LOAD_BY_ID: {
+			return {
+				...state,
+				current: action.spot,
 			};
 		}
 		default:
