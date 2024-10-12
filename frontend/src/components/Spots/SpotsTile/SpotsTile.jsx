@@ -9,10 +9,10 @@ const SpotsTile = ({ spot }) => {
 	const handleClick = () => {
 		navigate(`spots/${spot.id}`);
 	};
-	const formattedRating = new Intl.NumberFormat('en-US', {
-		minimumFractionDigits: 1,
-		maximumFractionDigits: 2,
-	}).format(spot.avgRating);
+	// const formattedRating = new Intl.NumberFormat('en-US', {
+	// 	minimumFractionDigits: 1,
+	// 	maximumFractionDigits: 2,
+	// }).format(spot.avgRating);
 
 	return (
 		<li className="spot-details" onClick={handleClick}>
@@ -24,10 +24,10 @@ const SpotsTile = ({ spot }) => {
 					</span>
 				</li>
 				<li>
-					<span>{spot.name}</span>
+					<span>{`${spot.name} `}</span>
 					<span>
 						<FaStar />
-						{formattedRating || 'New'}
+						{` ${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}
 					</span>
 				</li>
 				<li>
