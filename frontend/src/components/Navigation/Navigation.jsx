@@ -13,6 +13,11 @@ function Navigation({ isLoaded }) {
 					<img src="/favicon.ico" alt="App Logo" className="logo" />
 				</NavLink>
 			</li>
+			{sessionUser && (
+				<NavLink to="/spots/create">
+					<button>Create a New Spot</button>
+				</NavLink>
+			)}
 			{isLoaded && (
 				<li>
 					<ProfileButton user={sessionUser} />
