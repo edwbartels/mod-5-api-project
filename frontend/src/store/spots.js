@@ -1,6 +1,7 @@
 const LOAD_ALL = 'spots/LOAD_ALL';
 const LOAD_BY_ID = 'spots/LOAD_BY_ID';
 const LOAD_REVIEWS_BY_ID = 'spots/LOAD_REVIEWS_BY_ID';
+const CREATE_SPOT = 'spots/CREATE_SPOT';
 
 const loadAll = (spots) => ({
 	type: LOAD_ALL,
@@ -45,6 +46,30 @@ export const getReviewsBySpotId = (id) => async (dispatch) => {
 		const reviews = await response.json();
 		console.log('IN FETCH', reviews);
 		dispatch(loadReviewsById(reviews.Reviews));
+	}
+};
+
+const createSpot = (spot) => ({
+	type: CREATE_SPOT,
+	spot,
+});
+
+export const postSpot = (spot) => async (dispatch) => {
+	try {
+		const response = await fetch('/api/spots', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(spot),
+		});
+
+		if (response.ok) {
+			const newSpot = await response.json();
+			dispatch(createSpot(newSpot));
+		}
+	} catch (err) {
+		console.error(`Error adding spot`, err);
 	}
 };
 
