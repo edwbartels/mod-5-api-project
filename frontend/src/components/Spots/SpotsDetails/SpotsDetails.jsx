@@ -3,32 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './SpotsDetails.css';
 import { getSpotById, getReviewsBySpotId } from '../../../store/spots';
-import ReviewsSummary from '../../Reviews/ReviewsSummary/ReviewsSummary';
-import { FaStar } from 'react-icons/fa';
+import ReviewsSummary from '../../Reviews/ReviewsSummary';
+import ReviewsList from '../../Reviews/ReviewsList';
 
 const SpotsDetails = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
 	const spot = useSelector((state) => state.spots.current);
-	// const [rating, setRating] = useState('New');
-	// const formattedRating = new Intl.NumberFormat('en-US', {
-	// 	minimumFractionDigits: 1,
-	// 	maximumFractionDigits: 2,
-	// }).format(spot.avgStarRating);
-
-	// const formatRating = () => {
-	// 	let avg = new Intl.NumberFormat('en-US', {
-	// 		minimumFractionDigits: 1,
-	// 		maximumFractionDigits: 2,
-	// 	}).format(spot?.avgStarRating);
-	// 	console.log(avg);
-	// 	if (avg > 0) setRating(avg);
-	// };
 
 	useEffect(() => {
 		dispatch(getSpotById(spotId));
 		dispatch(getReviewsBySpotId(spotId));
-		// formatRating();
 	}, [dispatch, spotId]);
 
 	const handleReserve = () => {
@@ -51,6 +36,7 @@ const SpotsDetails = () => {
 					{spot?.price} <span>/ night</span>
 				</div>
 				<ReviewsSummary />
+				<ReviewsList />
 				<button onClick={handleReserve}>Reserve</button>
 			</div>
 		</section>
