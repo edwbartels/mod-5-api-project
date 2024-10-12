@@ -23,7 +23,7 @@ const {
 	handleValidationErrors,
 } = require('../../utils/validation');
 
-// GET all spots
+// @ GET all spots
 router.get('/', validateQueryParams, async (req, res, next) => {
 	const queryParams = req.queryParams;
 	const limit = queryParams.size;
@@ -124,7 +124,7 @@ router.get('/', validateQueryParams, async (req, res, next) => {
 	// }
 });
 
-// GET all spots owned by current user
+// @ GET all spots owned by current user
 
 router.get('/current', requireAuth, async (req, res, next) => {
 	const { user } = req;
@@ -196,7 +196,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 	res.status(200).json({ Spots: formattedSpots });
 });
 
-// GET spot by id
+// @ GET spot by id
 
 router.get('/:spotId', async (req, res, next) => {
 	const spot = await Spot.findByPk(req.params.spotId, {
@@ -284,7 +284,7 @@ router.get('/:spotId', async (req, res, next) => {
 	res.status(200).json(formattedSpot);
 });
 
-// POST create a spot
+// @ POST create a spot
 
 router.post('/', requireAuth, async (req, res, next) => {
 	const { user } = req;
@@ -309,7 +309,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 	}
 });
 
-// POST add image to spot by spotId
+// @ POST add image to spot by spotId
 
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 	const { user } = req;
@@ -338,15 +338,11 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 		};
 		return res.status(201).json(formattedImg);
 	} catch (error) {
-		// if (error.name === 'SequelizeForeignKeyConstraintError') {
-		// 	error.status = 404;
-		// 	error.message = `Spot couldn't be found`;
-		// }
 		next(error);
 	}
 });
 
-// PUT edit a spot
+// @ PUT edit a spot
 
 router.put(
 	'/:spotId',
@@ -397,7 +393,7 @@ router.put(
 	}
 );
 
-// DELETE a spot
+// @ DELETE a spot
 
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
 	const { user } = req;
@@ -419,9 +415,10 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 	});
 });
 
-// GET reviews by spotId
+// @ GET reviews by spotId
 
 router.get('/:spotId/reviews', async (req, res, next) => {
+	const { user } = req;
 	const spot = await Spot.findByPk(req.params.spotId);
 	if (!spot) {
 		const err = new Error(`Spot couldn't be found`);
@@ -444,7 +441,18 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 		],
 	});
 
-	res.status(200).json({ Reviews: reviews });
+	let hasReview = false;
+	if (user) {
+		const userReview = await Review.findOne({
+			where: {
+				spotId: req.params.spotId,
+				userId: user.id,
+			},
+		});
+		hasReview = !!userReview;
+	}
+
+	res.status(200).json({ Reviews: reviews, hasReview });
 });
 
 //POST create review by spotId

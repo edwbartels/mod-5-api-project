@@ -13,6 +13,7 @@ const { Op, fn, col } = require('sequelize');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 
+// @ GET Current user's reviews
 router.get('/current', requireAuth, async (req, res, next) => {
 	const { user } = req;
 

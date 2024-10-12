@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { postSpot } from '../../../store/spots';
+// import { getUser } from '../../../store/selectors';
 import validations from './validations';
 
 const CreateSpot = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	// const currentUser = getUser();
 
 	const [address, setAddress] = useState('');
 	const [city, setCity] = useState('');
@@ -63,15 +66,56 @@ const CreateSpot = () => {
 			city,
 			country,
 			description,
-			imageOne,
 			name,
 			price,
 			state,
-			imageTwo,
-			imageThree,
-			imageFour,
-			imageFive,
+			lat: null,
+			lng: null,
 		};
+
+		const imageInfo = {
+			imageOne: {
+				url: imageOne,
+				preview: true,
+			},
+			imageTwo: {
+				url: imageTwo,
+				preview: false,
+			},
+			imageThree: {
+				url: imageThree,
+				preview: false,
+			},
+			imageFour: {
+				url: imageFour,
+				preview: false,
+			},
+			imageFive: {
+				url: imageFive,
+				preview: false,
+			},
+		};
+		Object.keys(imageInfo).forEach((key) => {
+			if (!imageInfo[key].url) delete imageInfo[key];
+		});
+
+		dispatch(postSpot(spotInfo, imageInfo, navigate)).then(() => {
+			setAddress('');
+			setCity('');
+			setCountry('');
+			setDescription('');
+			setImageOne('');
+			setName('');
+			setPrice('');
+			setState('');
+			setImageTwo('');
+			setImageThree('');
+			setImageFour('');
+			setImageFive('');
+			setErrors({});
+			setHasSubmitted(false);
+		});
+
 		setAddress('');
 		setCity('');
 		setCountry('');
@@ -91,9 +135,9 @@ const CreateSpot = () => {
 	return (
 		<div>
 			<h2>Create a New Spot</h2>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<section>
-					<h4>Where's your place located?</h4>
+					<h4>Where&apos; your place located?</h4>
 					<div>
 						Guests will only get your exact address once a reservation is
 						booked.
@@ -108,7 +152,7 @@ const CreateSpot = () => {
 							required
 						/>
 					</label>
-					{errors.country && <p>{errors.country}</p>}
+					{hasSubmitted && errors.country && <p>{errors.country}</p>}
 					<label>Street Address</label>
 					<input
 						type="text"
@@ -117,7 +161,7 @@ const CreateSpot = () => {
 						placeholder="123 Disney Lane"
 						required
 					/>
-					{errors.address && <p>{errors.address}</p>}
+					{hasSubmitted && errors.address && <p>{errors.address}</p>}
 
 					<label>City</label>
 					<input
@@ -127,7 +171,7 @@ const CreateSpot = () => {
 						placeholder="San Francisco"
 						required
 					/>
-					{errors.city && <p>{errors.city}</p>}
+					{hasSubmitted && errors.city && <p>{errors.city}</p>}
 					<label>State</label>
 					<input
 						type="text"
@@ -136,12 +180,12 @@ const CreateSpot = () => {
 						placeholder="California"
 						required
 					/>
-					{errors.state && <p>{errors.state}</p>}
+					{hasSubmitted && errors.state && <p>{errors.state}</p>}
 				</section>
 				<section>
 					<h4>Describe your place to guests</h4>
 					<div>
-						Mention the best features of your space, any special amentities like
+						Mention the best features of your space, any special amenities like
 						fast wifi or parking, and what you love about the neighborhood.
 					</div>
 					<input
@@ -151,13 +195,13 @@ const CreateSpot = () => {
 						placeholder="Please write at least 30 characters"
 						required
 					/>
-					{errors.description && <p>{errors.description}</p>}
+					{hasSubmitted && errors.description && <p>{errors.description}</p>}
 				</section>
 				<section>
 					<h4>Create a title for your spot</h4>
 					<div>
-						Catch guests' attention with a spot title that highlights what makes
-						your palce special.
+						Catch guests&apos; attention with a spot title that highlights what
+						makes your place special.
 					</div>
 					<input
 						type="text"
@@ -166,7 +210,7 @@ const CreateSpot = () => {
 						placeholder="Name of your spot"
 						required
 					/>
-					{errors.name && <p>{errors.name}</p>}
+					{hasSubmitted && errors.name && <p>{errors.name}</p>}
 				</section>
 				<section>
 					<h4>Set a base price for your spot</h4>
@@ -181,7 +225,7 @@ const CreateSpot = () => {
 						placeholder="Price per night (USD)"
 						required
 					/>
-					{errors.price && <p>{errors.price}</p>}
+					{hasSubmitted && errors.price && <p>{errors.price}</p>}
 				</section>
 				<section>
 					<h4>Liven up your spot with photos</h4>
@@ -193,7 +237,7 @@ const CreateSpot = () => {
 						placeholder="Preview Image URL"
 						required
 					/>
-					{errors.image && <p>{errors.image}</p>}
+					{hasSubmitted && errors.image && <p>{errors.image}</p>}
 
 					<input
 						type="text"

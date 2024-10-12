@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './SpotsDetails.css';
+import { getSpot, getUser } from '../../../store/selectors';
 import { getSpotById, getReviewsBySpotId } from '../../../store/spots';
 import ReviewsSummary from '../../Reviews/ReviewsSummary';
 import ReviewsList from '../../Reviews/ReviewsList';
@@ -9,12 +10,17 @@ import ReviewsList from '../../Reviews/ReviewsList';
 const SpotsDetails = () => {
 	const dispatch = useDispatch();
 	const { spotId } = useParams();
-	const spot = useSelector((state) => state.spots.current);
+	const spot = useSelector(getSpot);
+	const user = useSelector(getUser);
+	const canReview =
+		!useSelector((state) => state.spots?.hasReview) &&
+		user?.id != spot.Owner?.id;
+	console.log('CAN I REVIEW', canReview);
 
 	useEffect(() => {
 		dispatch(getSpotById(spotId));
 		dispatch(getReviewsBySpotId(spotId));
-	}, [dispatch, spotId]);
+	}, [dispatch, spotId, user]);
 
 	const handleReserve = () => {
 		window.alert(`Feature coming soon.`);
@@ -36,6 +42,7 @@ const SpotsDetails = () => {
 					{spot?.price} <span>/ night</span>
 				</div>
 				<ReviewsSummary />
+				{user && canReview && <button>Post Your Review</button>}
 				<ReviewsList />
 				<button onClick={handleReserve}>Reserve</button>
 			</div>
