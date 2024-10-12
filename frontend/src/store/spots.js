@@ -1,5 +1,6 @@
 const LOAD_ALL = 'spots/LOAD_ALL';
 const LOAD_BY_ID = 'spots/LOAD_BY_ID';
+const LOAD_REVIEWS_BY_ID = 'spots/LOAD_REVIEWS_BY_ID';
 
 const loadAll = (spots) => ({
 	type: LOAD_ALL,
@@ -26,13 +27,30 @@ export const getSpotById = (id) => async (dispatch) => {
 
 	if (response.ok) {
 		const spot = await response.json();
+		spot.Reviews = [];
 		console.log('IN FETCH', spot);
 		dispatch(loadById(spot));
 	}
 };
 
+const loadReviewsById = (id) => ({
+	type: LOAD_REVIEWS_BY_ID,
+	id,
+});
+
+export const getReviewsBySpotId = (id) => async (dispatch) => {
+	const response = await fetch(`/api/spots/${id}/reviews`);
+
+	if (response.ok) {
+		const reviews = await response.json();
+		console.log('IN FETCH', reviews);
+		dispatch(loadReviewsById(reviews.Reviews));
+	}
+};
+
 const initialState = {
 	all: [],
+	current: [],
 };
 
 const spotsReducer = (state = initialState, action) => {
@@ -48,6 +66,12 @@ const spotsReducer = (state = initialState, action) => {
 				...state,
 				current: action.spot,
 			};
+		}
+		case LOAD_REVIEWS_BY_ID: {
+			const newState = { ...state };
+			newState.current.Reviews = { ...action.id };
+			console.log('IN CASE', newState);
+			return { ...newState };
 		}
 		default:
 			return state;

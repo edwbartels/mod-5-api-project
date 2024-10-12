@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './SpotsDetails.css';
-import { getSpotById } from '../../../store/spots';
+import { getSpotById, getReviewsBySpotId } from '../../../store/spots';
+import ReviewsSummary from '../../Reviews/ReviewsSummary/ReviewsSummary';
 import { FaStar } from 'react-icons/fa';
 
 const SpotsDetails = () => {
@@ -26,6 +27,7 @@ const SpotsDetails = () => {
 
 	useEffect(() => {
 		dispatch(getSpotById(spotId));
+		dispatch(getReviewsBySpotId(spotId));
 		// formatRating();
 	}, [dispatch, spotId]);
 
@@ -34,16 +36,8 @@ const SpotsDetails = () => {
 	};
 	return (
 		<section>
-			<h2>
-				{`${spot?.name} `}
-				<div>
-					<FaStar />
-					<span> </span>
-					{spot?.numReviews > 0 ? spot?.avgStarRating.toFixed(2) : 'New'}{' '}
-					<span className="dot">. </span>
-					{spot?.numReviews} Reviews
-				</div>
-			</h2>
+			<h2>{`${spot?.name} `}</h2>
+			<ReviewsSummary />
 			<h3>
 				Location: {spot?.city}, {spot?.state}, {spot?.country}
 			</h3>
@@ -56,19 +50,7 @@ const SpotsDetails = () => {
 				<div>
 					{spot?.price} <span>/ night</span>
 				</div>
-				<div className="reviewCollection">
-					<div>
-						<FaStar />
-						<span> </span>
-						{spot?.avgStarRating ? spot?.avgStarRating.toFixed(2) : 'New'}
-					</div>
-					<div className="dot"> . </div>
-					<div>
-						{spot?.numReviews == 1
-							? spot?.numReviews + ' Review'
-							: spot?.numReviews + ' Reviews'}
-					</div>
-				</div>
+				<ReviewsSummary />
 				<button onClick={handleReserve}>Reserve</button>
 			</div>
 		</section>
