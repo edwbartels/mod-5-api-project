@@ -1,10 +1,12 @@
 import { csrfFetch } from './csrf/';
 const LOAD_ALL = 'spots/LOAD_ALL';
+const LOAD_CURRENT_USER = 'spots/LOAD_CURRENT_USER';
 const LOAD_BY_ID = 'spots/LOAD_BY_ID';
 const LOAD_REVIEWS_BY_ID = 'spots/LOAD_REVIEWS_BY_ID';
 const CREATE_SPOT = 'spots/CREATE_SPOT';
 const ADD_IMAGE = 'spots/ADD_IMAGE';
 const USER_HAS_REVIEW = 'spots/USER_HAS_REVIEW';
+const POST_REVIEW = '/spots/';
 
 // @ GET ALL SPOTS
 const loadAll = (spots) => ({
@@ -22,7 +24,23 @@ export const getAllSpots = () => async (dispatch) => {
 	}
 };
 
+// @ GET ALL SPOTS OF CURRENT USER
+const loadUserSpots = (spots) => ({
+	type: LOAD_CURRENT_USER,
+	spots,
+});
+export const getUserSpots = () => async (dispatch) => {
+	const response = await csrfFetch(`/api/spots/current`);
+
+	if (response.ok) {
+		const data = await response.json();
+		const spotsArray = data.Spots;
+		dispatch(loadUserSpots(spotsArray));
+	}
+};
+
 // @ GET SPOT BY ID
+// ! CONSIDER REFACTOR TO INCLUDE GET REVIEWS IN THIS
 const loadById = (spot) => ({
 	type: LOAD_BY_ID,
 	spot,
@@ -36,6 +54,7 @@ export const getSpotById = (id) => async (dispatch) => {
 		spot.Reviews = [];
 		console.log('IN FETCH', spot);
 		dispatch(loadById(spot));
+		return spot;
 	}
 };
 
@@ -107,6 +126,27 @@ export const postSpotImage = (spotId, image) => async (dispatch) => {
 	}
 };
 
+// @ POST REVIEW TO SPOT
+const addReview = (review) => ({
+	type: POST_REVIEW,
+	review,
+});
+
+export const postReview = (spotId, review) => async (dispatch) => {
+	try {
+		const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+			method: 'POST',
+			body: JSON.stringify(review),
+		});
+
+		if (response.ok) {
+			dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId)));
+		}
+	} catch (err) {
+		console.error(`Error adding review to spot`, err);
+	}
+};
+
 const initialState = {
 	all: [],
 	current: [],
@@ -121,6 +161,14 @@ const spotsReducer = (state = initialState, action) => {
 				all: action.spots,
 				current: [],
 				hasReview: false,
+			};
+		}
+		case LOAD_CURRENT_USER: {
+			return {
+				...state,
+				current: [],
+				hasReview: false,
+				userSpots: action.spots,
 			};
 		}
 		case LOAD_BY_ID: {
@@ -148,6 +196,16 @@ const spotsReducer = (state = initialState, action) => {
 				hasReview: action.hasReview,
 			};
 		}
+		// * MAYBE REVISIT
+		// // ! Need to fix IDing in objects to reflect actual ID (source: inital build of review object)
+		// case POST_REVIEW: {
+		// 	const newState = { ...state };
+		// 	const id = action.review.id - 1;
+		// 	newState.current.Reviews = {
+		// 		...newState.current.Reviews,
+		// 		[id]: action.review,
+		// 	};
+		// }
 		default:
 			return state;
 	}

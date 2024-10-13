@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
@@ -8,6 +9,7 @@ import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [showMenu, setShowMenu] = useState(false);
 	const ulRef = useRef();
 
@@ -31,7 +33,11 @@ function ProfileButton({ user }) {
 	}, [showMenu]);
 
 	const closeMenu = () => setShowMenu(false);
-
+	const manageSpots = (e) => {
+		e.preventDefault();
+		closeMenu();
+		navigate(`user/manage/spots`);
+	};
 	const logout = (e) => {
 		e.preventDefault();
 		dispatch(sessionActions.logout());
@@ -53,6 +59,9 @@ function ProfileButton({ user }) {
 							{user.firstName} {user.lastName}
 						</li>
 						<li>{user.email}</li>
+						<li>
+							<button onClick={manageSpots}>Manage Spots</button>
+						</li>
 						<li>
 							<button onClick={logout}>Log Out</button>
 						</li>

@@ -88,7 +88,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 	res.status(200).json({ Reviews: formattedReviews });
 });
 
-// POST add image to review by reviewId
+// @ POST add image to review by reviewId
 
 router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 	const { user } = req;
@@ -127,7 +127,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 	res.status(201).json(respo);
 });
 
-// PUT edit a review by reviewId
+// @ PUT edit a review by reviewId
 
 router.put(
 	'/:reviewId',
@@ -161,7 +161,7 @@ router.put(
 	}
 );
 
-// DELETE a review by id
+// @ DELETE a review by id
 
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 	const { user } = req;

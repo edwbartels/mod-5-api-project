@@ -6,6 +6,8 @@ import { getSpot, getUser } from '../../../store/selectors';
 import { getSpotById, getReviewsBySpotId } from '../../../store/spots';
 import ReviewsSummary from '../../Reviews/ReviewsSummary';
 import ReviewsList from '../../Reviews/ReviewsList';
+import PostReviewModal from '../../Reviews/PostReviewModal';
+import OpenModalButton from '../../OpenModalButton';
 
 const SpotsDetails = () => {
 	const dispatch = useDispatch();
@@ -18,8 +20,7 @@ const SpotsDetails = () => {
 	console.log('CAN I REVIEW', canReview);
 
 	useEffect(() => {
-		dispatch(getSpotById(spotId));
-		dispatch(getReviewsBySpotId(spotId));
+		dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId)));
 	}, [dispatch, spotId, user]);
 
 	const handleReserve = () => {
@@ -42,7 +43,12 @@ const SpotsDetails = () => {
 					{spot?.price} <span>/ night</span>
 				</div>
 				<ReviewsSummary />
-				{user && canReview && <button>Post Your Review</button>}
+				{user && canReview && (
+					<OpenModalButton
+						buttonText="Post Your Review"
+						modalComponent={<PostReviewModal />}
+					/>
+				)}
 				<ReviewsList />
 				<button onClick={handleReserve}>Reserve</button>
 			</div>

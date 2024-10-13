@@ -455,7 +455,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 	res.status(200).json({ Reviews: reviews, hasReview });
 });
 
-//POST create review by spotId
+// @ POST create review by spotId
 
 router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 	const { user } = req;
