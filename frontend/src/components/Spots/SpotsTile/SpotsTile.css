@@ -1,10 +1,10 @@
 .grid-item {
-	cursor: pointer;
 	padding: 10px;
 	border-radius: 8px;
 	text-align: center;
 }
 .image-thumbnail {
+	cursor: pointer;
 	padding: 60px 0;
 	border-radius: 8px;
 	margin-bottom: 8px;

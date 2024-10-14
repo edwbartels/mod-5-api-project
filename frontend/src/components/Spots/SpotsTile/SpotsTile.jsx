@@ -15,11 +15,12 @@ const SpotsTile = ({ spot }) => {
 	// }).format(spot.avgRating);
 
 	return (
-		<div className="grid-item" onClick={handleClick}>
+		<div className="grid-item">
 			<img
 				className="image-thumbnail"
 				title={spot.name}
 				src={spot.previewImage || null}
+				onClick={handleClick}
 			/>
 			<div className="info">
 				<div className="location-rating">
