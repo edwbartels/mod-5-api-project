@@ -126,6 +126,23 @@ export const postSpotImage = (spotId, image) => async (dispatch) => {
 	}
 };
 
+// @ EDIT A SPOT
+export const editSpot = (spot, id) => async (dispatch) => {
+	try {
+		const response = await csrfFetch(`/api/spots/${id}`, {
+			method: 'PUT',
+			body: JSON.stringify(spot),
+		});
+		if (response.ok) {
+			const updatedSpot = await response.json();
+			// navigate(`/spots/${updatedSpot.id}`);
+			return updatedSpot;
+		}
+	} catch (err) {
+		console.error(`Error updating spot`);
+	}
+};
+
 // @ POST REVIEW TO SPOT
 const addReview = (review) => ({
 	type: POST_REVIEW,

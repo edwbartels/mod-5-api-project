@@ -25,51 +25,8 @@ const UpdateSpotPage = () => {
 	const [imageFive, setImageFive] = useState('');
 	const [errors, setErrors] = useState({});
 	const [hasSubmitted, setHasSubmitted] = useState(false);
-	// const [address, setAddress] = useState(spot?.address);
-	// const [city, setCity] = useState(spot?.city);
-	// const [country, setCountry] = useState(spot?.country);
-	// const [description, setDescription] = useState(spot?.description);
-	// const [name, setName] = useState(spot?.name);
-	// const [imageOne, setImageOne] = useState(spot?.SpotImages[0]?.url || '');
-	// const [price, setPrice] = useState(spot?.price);
-	// const [state, setState] = useState(spot?.state);
-	// const [imageTwo, setImageTwo] = useState(spot?.SpotImages[1]?.url || '');
-	// const [imageThree, setImageThree] = useState(spot?.SpotImages[2]?.url || '');
-	// const [imageFour, setImageFour] = useState(spot?.SpotImages[3]?.url || '');
-	// const [imageFive, setImageFive] = useState(spot?.SpotImages[4]?.url || '');
-	// const [errors, setErrors] = useState({});
-	// const [hasSubmitted, setHasSubmitted] = useState(false);
 
 	useEffect(() => {
-		// const fetchSpot = async () => {
-		// 	const fetchedSpot = await dispatch(spotActions.getSpotById(spotId));
-
-		// 	if (fetchedSpot) {
-		// 		setAddress(fetchedSpot?.address || '');
-		// 		setCity(fetchedSpot?.city || '');
-		// 		setCountry(fetchedSpot?.country || '');
-		// 		setDescription(fetchedSpot?.description || '');
-		// 		setName(fetchedSpot?.name || '');
-		// 		setImageOne(
-		// 			fetchedSpot?.SpotImages ? fetchedSpot.SpotImages[0]?.url : ''
-		// 		);
-		// 		setPrice(fetchedSpot?.price || '');
-		// 		setState(fetchedSpot?.state || '');
-		// 		setImageTwo(
-		// 			fetchedSpot?.SpotImages ? fetchedSpot.SpotImages[1]?.url : ''
-		// 		);
-		// 		setImageThree(
-		// 			fetchedSpot?.SpotImages ? fetchedSpot.SpotImages[2]?.url : ''
-		// 		);
-		// 		setImageFour(
-		// 			fetchedSpot?.SpotImages ? fetchedSpot.SpotImages[3]?.url : ''
-		// 		);
-		// 		setImageFive(
-		// 			fetchedSpot?.SpotImages ? fetchedSpot.SpotImages[4]?.url : ''
-		// 		);
-		// 	}
-		// };
-		// fetchSpot();
 		dispatch(spotActions.getSpotById(spotId)).then((fetchedSpot) => {
 			setAddress(fetchedSpot?.address || '');
 			setCity(fetchedSpot?.city || '');
@@ -97,29 +54,28 @@ const UpdateSpotPage = () => {
 	}, [dispatch, spotId]);
 	// useEffect(() => {}, [spot]);
 
-	// useEffect(() => {
-	// 	const newErrors = {
-	// 		address: validations.address(address),
-	// 		city: validations.city(city),
-	// 		country: validations.country(country),
-	// 		description: validations.description(description),
-	// 		image: validations.image(imageOne),
-	// 		name: validations.name(name),
-	// 		price: validations.price(price),
-	// 		state: validations.state(state),
-	// 	};
+	useEffect(() => {
+		const newErrors = {
+			address: validations.address(address),
+			city: validations.city(city),
+			country: validations.country(country),
+			description: validations.description(description),
+			image: validations.image(imageOne),
+			name: validations.name(name),
+			price: validations.price(price),
+			state: validations.state(state),
+		};
 
-	// 	Object.keys(newErrors).forEach((key) => {
-	// 		if (!newErrors[key]) delete newErrors[key];
-	// 	});
+		Object.keys(newErrors).forEach((key) => {
+			if (!newErrors[key]) delete newErrors[key];
+		});
 
-	// 	setErrors(newErrors);
-	// }, [address, city, country, description, imageOne, name, price, state]);
+		setErrors(newErrors);
+	}, [address, city, country, description, imageOne, name, price, state]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setHasSubmitted(true);
-		/*
 
 		if (Object.values(errors).length > 0) {
 			return alert(`The following errors were found:
@@ -171,44 +127,15 @@ const UpdateSpotPage = () => {
 		Object.keys(imageInfo).forEach((key) => {
 			if (!imageInfo[key].url) delete imageInfo[key];
 		});
-
-		// dispatch(postSpot(spotInfo, imageInfo, navigate)).then(() => {
-		// 	// setAddress('');
-		// 	// setCity('');
-		// 	// setCountry('');
-		// 	// setDescription('');
-		// 	// setImageOne('');
-		// 	// setName('');
-		// 	// setPrice('');
-		// 	// setState('');
-		// 	// setImageTwo('');
-		// 	// setImageThree('');
-		// 	// setImageFour('');
-		// 	// setImageFive('');
-		// 	setErrors({});
-		// 	setHasSubmitted(false);
-		// });
-
-		// setAddress('');
-		// setCity('');
-		// setCountry('');
-		// setDescription('');
-		// setImageOne('');
-		// setName('');
-		// setPrice('');
-		// setState('');
-		// setImageTwo('');
-		// setImageThree('');
-		// setImageFour('');
-		// setImageFive('');
-		// setErrors({});
-		// setHasSubmitted(false);
-*/
+		console.log('SPOT ID: ', spot.id);
+		dispatch(spotActions.editSpot(spotInfo, spot.id)).then((updatedSpot) =>
+			navigate(`/spots/${updatedSpot.id}`)
+		);
 	};
 
 	return (
 		<div>
-			<h2>Create a New Spot</h2>
+			<h2>Update your Spot</h2>
 			<form onSubmit={handleSubmit}>
 				<section>
 					<h4>Where&apos; your place located?</h4>
