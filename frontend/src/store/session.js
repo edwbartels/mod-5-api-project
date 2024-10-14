@@ -56,11 +56,12 @@ export const signup = (user) => async (dispatch) => {
 	return response;
 };
 
-export const logout = () => async (dispatch) => {
+export const logout = (navigate) => async (dispatch) => {
 	const response = await csrfFetch('/api/session', {
 		method: 'DELETE',
 	});
 	dispatch(removeUser());
+	navigate(`/`);
 	return response;
 };
 

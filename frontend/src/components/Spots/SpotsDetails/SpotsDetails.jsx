@@ -27,7 +27,7 @@ const SpotsDetails = () => {
 		window.alert(`Feature coming soon.`);
 	};
 	return (
-		<section>
+		<div className="grid-item">
 			<h2>{`${spot?.name} `}</h2>
 			<ReviewsSummary />
 			<h3>
@@ -52,7 +52,7 @@ const SpotsDetails = () => {
 				<ReviewsList />
 				<button onClick={handleReserve}>Reserve</button>
 			</div>
-		</section>
+		</div>
 	);
 };
 

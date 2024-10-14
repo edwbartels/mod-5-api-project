@@ -14,14 +14,11 @@ const SpotsList = () => {
 	}, [dispatch]);
 
 	return (
-		<>
-			<h2>All Spots</h2>
-			<ul>
-				{spots.map((spot) => (
-					<SpotsTile key={spot.id} spot={spot} />
-				))}
-			</ul>
-		</>
+		<div className="grid-container">
+			{spots.map((spot) => (
+				<SpotsTile key={spot.id} spot={spot} />
+			))}
+		</div>
 	);
 };
 

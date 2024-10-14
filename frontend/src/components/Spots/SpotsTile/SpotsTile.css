@@ -1,3 +1,26 @@
-.spot-details {
+.grid-item {
 	cursor: pointer;
+	padding: 10px;
+	border-radius: 8px;
+	text-align: center;
+}
+.image-thumbnail {
+	padding: 60px 0;
+	border-radius: 8px;
+	margin-bottom: 8px;
+}
+
+.info {
+	text-align: left;
+}
+.location-rating {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.star-rating {
+	font-weight: bold;
 }

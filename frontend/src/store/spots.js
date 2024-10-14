@@ -6,7 +6,8 @@ const LOAD_REVIEWS_BY_ID = 'spots/LOAD_REVIEWS_BY_ID';
 const CREATE_SPOT = 'spots/CREATE_SPOT';
 const ADD_IMAGE = 'spots/ADD_IMAGE';
 const USER_HAS_REVIEW = 'spots/USER_HAS_REVIEW';
-const POST_REVIEW = '/spots/';
+const POST_REVIEW = '/spots/POST_REVIEW';
+const DELETE_SPOT = '/spots/DELETE';
 
 // @ GET ALL SPOTS
 const loadAll = (spots) => ({
@@ -140,6 +141,26 @@ export const editSpot = (spot, id) => async (dispatch) => {
 		}
 	} catch (err) {
 		console.error(`Error updating spot`);
+	}
+};
+
+// @ DELETE A SPOT
+//! REFACTOR AFTER EDITING HOW SPOTS
+const removeSpot = (spot) => ({
+	type: DELETE_SPOT,
+	spot,
+});
+export const deleteSpot = (spot) => async (dispatch) => {
+	try {
+		const response = await csrfFetch(`/api/spots/${spot.id}`, {
+			method: 'DELETE',
+			body: JSON.stringify(spot),
+		});
+		if (response.ok) {
+			dispatch(getUserSpots());
+		}
+	} catch (err) {
+		console.error(`Error deleting spot`, err);
 	}
 };
 

@@ -15,29 +15,25 @@ const SpotsTile = ({ spot }) => {
 	// }).format(spot.avgRating);
 
 	return (
-		<li className="spot-details" onClick={handleClick}>
-			<ul>
-				<li>
-					<img src={spot.previewImage || null} />
+		<div className="grid-item" onClick={handleClick}>
+			<img
+				className="image-thumbnail"
+				title={spot.name}
+				src={spot.previewImage || null}
+			/>
+			<div className="info">
+				<div className="location-rating">
 					<span>
 						{spot.city}, {spot.state}
 					</span>
-				</li>
-				<li>
-					<span>{`${spot.name} `}</span>
-					<span>
+					<span className="star-rating">
 						<FaStar />
 						{` ${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}
 					</span>
-				</li>
-				<li>
-					<span>
-						{spot.price}
-						<label>night</label>
-					</span>
-				</li>
-			</ul>
-		</li>
+				</div>
+				<span className="price">${spot.price}/night</span>
+			</div>
+		</div>
 	);
 };
 

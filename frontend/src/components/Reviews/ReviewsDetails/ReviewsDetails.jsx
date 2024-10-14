@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
+import * as reviewActions from '../../../store/reviews';
 import * as get from '../../../store/selectors';
+import OpenModalButton from '../../OpenModalButton';
+import DeleteReviewModal from '../../User/Reviews/DeleteReviewModal';
 import './ReviewsDetails.css';
 
 const ReviewsDetails = ({ review }) => {
-	console.log('IN DETAILS', review);
-
-	const owner = useSelector(get.getOwner);
 	const user = useSelector(get.getUser);
 
 	const formatDate = (dateString) => {
@@ -24,6 +24,12 @@ const ReviewsDetails = ({ review }) => {
 			</div>
 			<h2>{`REVIEW:ID ${review.id}`}</h2>
 			<p>{review.review}</p>
+			{review.userId == user?.id && (
+				<OpenModalButton
+					buttonText="Delete"
+					modalComponent={<DeleteReviewModal review={review} />}
+				/>
+			)}
 		</li>
 	);
 };
