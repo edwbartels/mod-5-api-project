@@ -79,11 +79,15 @@
 
 button.reserve {
 	padding: 10px 20px;
-	cursor: pointer;
 	width: 80%;
 }
 
 .details-line {
 	border: none;
 	border-top: 2px solid #000000;
+}
+
+.post-review-button button {
+	background-color: #666666;
+	padding: 3px 5px;
 }

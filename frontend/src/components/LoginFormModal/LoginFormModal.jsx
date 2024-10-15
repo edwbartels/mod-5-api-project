@@ -44,7 +44,7 @@ function LoginFormModal() {
 	return (
 		// <div className="modal-background">
 		<div className="modal-box">
-			<h2>Log In</h2>
+			<h1>Log In</h1>
 			<form onSubmit={handleSubmit}>
 				<input
 					type="text"

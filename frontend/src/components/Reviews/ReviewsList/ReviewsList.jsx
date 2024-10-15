@@ -12,13 +12,11 @@ const ReviewsList = () => {
 	const user = useSelector((state) => state.session.user);
 	const owner = useSelector((state) => state.spots.current?.Owner);
 
-	console.log('IN REVIEWSLIST', reviews);
 	const reviewsArray = reviews
 		? Object.values(reviews).sort(
 				(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
 		  )
 		: [];
-	console.log('ARRAY', reviewsArray);
 
 	if (reviewsArray.length === 0) {
 		if (user && owner && user.id !== owner.id) {
@@ -28,7 +26,6 @@ const ReviewsList = () => {
 	return (
 		<div className="reviews-list">
 			{reviewsArray.map((review) => {
-				console.log('SINGLE ITEM IN ARRAY', review);
 				return <ReviewsDetails key={review.id} review={review} />;
 			})}
 		</div>

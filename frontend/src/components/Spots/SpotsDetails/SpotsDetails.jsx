@@ -67,12 +67,14 @@ const SpotsDetails = () => {
 			<hr className="details-line"></hr>
 			<div>
 				<ReviewsSummary />
-				{user && canReview && (
-					<OpenModalButton
-						buttonText="Post Your Review"
-						modalComponent={<PostReviewModal />}
-					/>
-				)}
+				<div className="post-review-button">
+					{user && canReview && (
+						<OpenModalButton
+							buttonText="Post Your Review"
+							modalComponent={<PostReviewModal />}
+						/>
+					)}
+				</div>
 				<ReviewsList />
 			</div>
 		</div>

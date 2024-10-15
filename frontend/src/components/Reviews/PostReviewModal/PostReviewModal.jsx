@@ -34,11 +34,10 @@ const PostReviewModal = () => {
 
 	const isDisabled = review.length < 10 || stars < 1 || stars > 5;
 	return (
-		<>
-			<h1>Post Your Review</h1>
+		<div className="modal-box">
+			<h1>How was your stay?</h1>
 			<form onSubmit={handleSubmit}>
-				<label>How was your stay?</label>
-				<input
+				<textarea
 					type="text"
 					value={review}
 					onChange={(e) => {
@@ -60,7 +59,7 @@ const PostReviewModal = () => {
 					Submit Your Review
 				</button>
 			</form>
-		</>
+		</div>
 	);
 };
 
