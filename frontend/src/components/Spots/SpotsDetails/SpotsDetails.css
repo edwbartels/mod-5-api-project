@@ -1,1 +1,76 @@
+.container {
+	max-width: 1000px;
+	padding: 20px;
+	margin: 0 auto;
+}
 
+.spot-title {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.spot-location {
+	font-size: 1.2rem;
+}
+
+.image-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-gap: 10px;
+	height: auto;
+}
+
+.image-grid img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.image-grid .image1 {
+	grid-column: 1/2;
+	grid-row: 1/3;
+}
+
+.details-section {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.host-title {
+	margin: 0;
+}
+.host-section p {
+	font-size: 1rem;
+}
+.pricing-section {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	padding: 10px;
+	border: 1px solid;
+	border-radius: 8px;
+	width: 30%;
+}
+.pricing-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.price {
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+
+button.reserve {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 80%;
+}

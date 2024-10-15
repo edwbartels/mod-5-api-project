@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
 	return (
 		<div className="nav-bar">
 			<NavLink to="/">
-				<img src="/favicon.ico" alt="App Logo" className="logo" />
+				<img src="/lodgr-trans.png" alt="App Logo" className="logo" />
 			</NavLink>
 			<div className="nav-items">
 				{sessionUser && (

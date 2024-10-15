@@ -9,10 +9,6 @@ const SpotsTile = ({ spot }) => {
 	const handleClick = () => {
 		navigate(`spots/${spot.id}`);
 	};
-	// const formattedRating = new Intl.NumberFormat('en-US', {
-	// 	minimumFractionDigits: 1,
-	// 	maximumFractionDigits: 2,
-	// }).format(spot.avgRating);
 
 	return (
 		<div className="grid-item">

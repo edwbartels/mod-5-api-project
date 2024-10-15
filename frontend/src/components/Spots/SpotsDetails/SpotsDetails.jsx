@@ -27,21 +27,37 @@ const SpotsDetails = () => {
 		window.alert(`Feature coming soon.`);
 	};
 	return (
-		<div className="grid-item">
-			<h2>{`${spot?.name} `}</h2>
-			<ReviewsSummary />
-			<h3>
-				Location: {spot?.city}, {spot?.state}, {spot?.country}
-			</h3>
-			<h1>Images placeholder</h1>
-			<div>
-				Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}
+		<div className="container">
+			<h1 className="spot-title">{`${spot?.name} `}</h1>
+			<h2 className="spot-location">
+				{spot?.city}, {spot?.state}, {spot?.country}
+			</h2>
+			<div className="image-grid">
+				<img className="image1" src="" title="Image One" />
+				<img src="" title="Image Two" />
+				<img src="" title="Image Three" />
+				<img src="" title="Image Four" />
+				<img src="" title="Image Five" />
 			</div>
-			<p>{spot?.description}</p>
-			<div>
-				<div>
-					{spot?.price} <span>/ night</span>
+			<div className="details-section">
+				<div className="host-section">
+					<h3 className="host-title">
+						Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}
+					</h3>
+					<p>{spot?.description}</p>
 				</div>
+				<div className="pricing-section">
+					<div className="pricing-top">
+						<div className="price">{`${spot.price}`}</div>
+						<div>night</div>
+						<ReviewsSummary />
+					</div>
+					<button className="reserve" onClick={handleReserve}>
+						Reserve
+					</button>
+				</div>
+			</div>
+			<div>
 				<ReviewsSummary />
 				{user && canReview && (
 					<OpenModalButton
@@ -50,7 +66,6 @@ const SpotsDetails = () => {
 					/>
 				)}
 				<ReviewsList />
-				<button onClick={handleReserve}>Reserve</button>
 			</div>
 		</div>
 	);
