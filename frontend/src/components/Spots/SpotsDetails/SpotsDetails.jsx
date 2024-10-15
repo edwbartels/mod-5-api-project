@@ -14,6 +14,7 @@ const SpotsDetails = () => {
 	const { spotId } = useParams();
 	const spot = useSelector(getSpot);
 	const user = useSelector(getUser);
+	const imageArray = useSelector((state) => state.spots.current.SpotImages);
 	const canReview =
 		!useSelector((state) => state.spots?.hasReview) &&
 		user?.id != spot.Owner?.id;
@@ -33,11 +34,15 @@ const SpotsDetails = () => {
 				{spot?.city}, {spot?.state}, {spot?.country}
 			</h2>
 			<div className="image-grid">
-				<img className="image1" src="" title="Image One" />
-				<img src="" title="Image Two" />
-				<img src="" title="Image Three" />
-				<img src="" title="Image Four" />
-				<img src="" title="Image Five" />
+				<img
+					className="image1"
+					src={imageArray ? imageArray[0] : ''}
+					title="Image One"
+				/>
+				<img src={imageArray ? imageArray[1] : ''} title="Image Two" />
+				<img src={imageArray ? imageArray[2] : ''} title="Image Three" />
+				<img src={imageArray ? imageArray[3] : ''} title="Image Four" />
+				<img src={imageArray ? imageArray[4] : ''} title="Image Five" />
 			</div>
 			<div className="details-section">
 				<div className="host-section">
@@ -48,8 +53,10 @@ const SpotsDetails = () => {
 				</div>
 				<div className="pricing-section">
 					<div className="pricing-top">
-						<div className="price">{`${spot.price}`}</div>
-						<div>night</div>
+						<div className="price">
+							<div className="price-number">{`$${spot.price}`}</div>
+							<div className="night">night</div>
+						</div>
 						<ReviewsSummary />
 					</div>
 					<button className="reserve" onClick={handleReserve}>
@@ -57,6 +64,7 @@ const SpotsDetails = () => {
 					</button>
 				</div>
 			</div>
+			<hr className="details-line"></hr>
 			<div>
 				<ReviewsSummary />
 				{user && canReview && (

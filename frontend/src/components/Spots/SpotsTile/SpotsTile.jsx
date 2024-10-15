@@ -24,8 +24,10 @@ const SpotsTile = ({ spot }) => {
 						{spot.city}, {spot.state}
 					</span>
 					<span className="star-rating">
-						<FaStar />
-						{` ${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}
+						<div>
+							<FaStar />
+						</div>
+						<div>{`${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}</div>
 					</span>
 				</div>
 				<span className="price">${spot.price}/night</span>

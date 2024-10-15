@@ -16,14 +16,14 @@ const description = (description) => {
 		: 'Description needs 30 or more characters';
 };
 const image = (image) => {
-	return image ? '' : 'At least a primary image is required';
+	return image ? '' : 'Preview image is required.';
 };
 const name = (name) => {
-	return name ? '' : 'Name is required.';
+	return name ? '' : 'Name is required';
 };
 
 const price = (price) => {
-	return price > 0 ? '' : 'Price must be a number greater than 0';
+	return price > 0 ? '' : 'Price is required';
 };
 
 const state = (state) => {

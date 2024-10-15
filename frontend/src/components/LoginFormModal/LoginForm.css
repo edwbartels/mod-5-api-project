@@ -39,12 +39,8 @@
 .modal-box button {
 	width: 100%;
 	padding: 10px;
-	background-color: #ff6347;
 	color: #fff;
-	border: 2px solid #000;
-	border-radius: 5px;
 	font-size: 16px;
-	cursor: pointer;
 }
 
 .modal-box button:hover {

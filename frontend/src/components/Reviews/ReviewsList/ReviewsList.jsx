@@ -26,12 +26,12 @@ const ReviewsList = () => {
 		}
 	}
 	return (
-		<ul>
+		<div className="reviews-list">
 			{reviewsArray.map((review) => {
 				console.log('SINGLE ITEM IN ARRAY', review);
 				return <ReviewsDetails key={review.id} review={review} />;
 			})}
-		</ul>
+		</div>
 	);
 };
 

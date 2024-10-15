@@ -2,6 +2,10 @@
 	display: none;
 }
 
+.nav-line {
+	width: 95%;
+}
+
 .nav-bar {
 	margin-left: 10px;
 	margin-right: 10px;

@@ -16,13 +16,11 @@ const ReviewsDetails = ({ review }) => {
 	const formattedDate = formatDate(review.createdAt);
 
 	return (
-		<li>
-			<div>
-				{`
-				${review.User.firstName}
-				${formattedDate}`}
+		<div>
+			<div className="review-info">
+				<div className="review-author-name">{review.User.firstName}</div>
+				<div className="review-date">{formattedDate}</div>
 			</div>
-			<h2>{`REVIEW:ID ${review.id}`}</h2>
 			<p>{review.review}</p>
 			{review.userId == user?.id && (
 				<OpenModalButton
@@ -30,7 +28,7 @@ const ReviewsDetails = ({ review }) => {
 					modalComponent={<DeleteReviewModal review={review} />}
 				/>
 			)}
-		</li>
+		</div>
 	);
 };
 
