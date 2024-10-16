@@ -1,8 +1,8 @@
 import { csrfFetch } from './csrf';
 import * as spotActions from './spots';
 
-const POST_REVIEW = '/reviews/POST_REVIEW';
-const DELETE_REVIEW = '/review_DELETE_REVIEW';
+// const POST_REVIEW = '/reviews/POST_REVIEW';
+// const DELETE_REVIEW = '/review_DELETE_REVIEW';
 
 export const deleteReview = (review) => async (dispatch) => {
 	const spotId = review.spotId;

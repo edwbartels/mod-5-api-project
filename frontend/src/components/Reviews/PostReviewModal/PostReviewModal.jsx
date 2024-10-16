@@ -21,6 +21,7 @@ const PostReviewModal = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setErrors({});
+		console.log(errors);
 		const reviewData = {
 			review,
 			stars,

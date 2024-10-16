@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import * as reviewActions from '../../../store/reviews';
+// import * as reviewActions from '../../../store/reviews';
 import * as get from '../../../store/selectors';
 import OpenModalButton from '../../OpenModalButton';
 import DeleteReviewModal from '../../User/Reviews/DeleteReviewModal';

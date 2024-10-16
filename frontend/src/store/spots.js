@@ -4,10 +4,10 @@ const LOAD_CURRENT_USER = 'spots/LOAD_CURRENT_USER';
 const LOAD_BY_ID = 'spots/LOAD_BY_ID';
 const LOAD_REVIEWS_BY_ID = 'spots/LOAD_REVIEWS_BY_ID';
 const CREATE_SPOT = 'spots/CREATE_SPOT';
-const ADD_IMAGE = 'spots/ADD_IMAGE';
+// const ADD_IMAGE = 'spots/ADD_IMAGE';
 const USER_HAS_REVIEW = 'spots/USER_HAS_REVIEW';
-const POST_REVIEW = '/spots/POST_REVIEW';
-const DELETE_SPOT = '/spots/DELETE';
+// const POST_REVIEW = '/spots/POST_REVIEW';
+// const DELETE_SPOT = '/spots/DELETE';
 
 // @ GET ALL SPOTS
 const loadAll = (spots) => ({
@@ -83,10 +83,10 @@ const setHasReview = (hasReview) => ({
 });
 
 // @ CREATE SPOT
-const createSpot = (spot) => ({
-	type: CREATE_SPOT,
-	spot,
-});
+// const createSpot = (spot) => ({
+// 	type: CREATE_SPOT,
+// 	spot,
+// });
 
 export const postSpot = (spot, images, navigate) => async (dispatch) => {
 	try {
@@ -111,24 +111,25 @@ export const postSpot = (spot, images, navigate) => async (dispatch) => {
 };
 
 // @ ADD IMAGE TO SPOT
-const addSpotImage = (spotId, image) => ({
-	type: ADD_IMAGE,
-	image,
-});
+// const addSpotImage = (spotId, image) => ({
+// 	type: ADD_IMAGE,
+// 	image,
+// });
 
-export const postSpotImage = (spotId, image) => async (dispatch) => {
+export const postSpotImage = (spotId, image) => async (/*dispatch*/) => {
 	try {
 		const response = await csrfFetch(`/api/spots/${spotId}/images`, {
 			method: 'POST',
 			body: JSON.stringify(image),
 		});
+		return response;
 	} catch (err) {
 		console.error(`Error adding image to spot`, err);
 	}
 };
 
 // @ EDIT A SPOT
-export const editSpot = (spot, id) => async (dispatch) => {
+export const editSpot = (spot, id) => async (/*dispatch*/) => {
 	try {
 		const response = await csrfFetch(`/api/spots/${id}`, {
 			method: 'PUT',
@@ -146,10 +147,10 @@ export const editSpot = (spot, id) => async (dispatch) => {
 
 // @ DELETE A SPOT
 //! REFACTOR AFTER EDITING HOW SPOTS
-const removeSpot = (spot) => ({
-	type: DELETE_SPOT,
-	spot,
-});
+// const removeSpot = (spot) => ({
+// 	type: DELETE_SPOT,
+// 	spot,
+// });
 export const deleteSpot = (spot) => async (dispatch) => {
 	try {
 		const response = await csrfFetch(`/api/spots/${spot.id}`, {
@@ -165,10 +166,10 @@ export const deleteSpot = (spot) => async (dispatch) => {
 };
 
 // @ POST REVIEW TO SPOT
-const addReview = (review) => ({
-	type: POST_REVIEW,
-	review,
-});
+// const addReview = (review) => ({
+// 	type: POST_REVIEW,
+// 	review,
+// });
 
 export const postReview = (spotId, review) => async (dispatch) => {
 	try {

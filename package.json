@@ -21,5 +21,6 @@
 	"bugs": {
 		"url": "https://github.com/edwbartels/api-project/issues"
 	},
-	"homepage": "https://github.com/edwbartels/api-project#readme"
+	"homepage": "https://github.com/edwbartels/api-project#readme",
+	"build": "vite build --watch"
 }

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useState } from 'react';
+import { useDispatch /*,useSelector*/ } from 'react-redux';
 import { useModal } from '../../../../context/Modal';
 import * as spotActions from '../../../../store/spots';
-import * as get from '../../../../store/selectors';
+// import * as get from '../../../../store/selectors';
 import './DeleteSpotModal.css';
 
 const DeleteSpotModal = ({ spot }) => {

@@ -1,11 +1,11 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink /*, useNavigate*/ } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector((state) => state.session.user);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	return (
 		<div className="nav-containter">
