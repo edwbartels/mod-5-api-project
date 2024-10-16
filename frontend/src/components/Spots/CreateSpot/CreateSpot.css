@@ -67,6 +67,17 @@ hr {
 	flex-direction: column;
 	width: 36%;
 }
+.create-price-line {
+	display: flex;
+}
+.create-price-line span {
+	font-weight: bold;
+	font-size: 18px;
+	margin-right: 8px;
+}
+.create-images input {
+	margin-bottom: 15px;
+}
 .comma {
 	margin-right: 10px;
 }
@@ -74,8 +85,13 @@ hr {
 .submit {
 	display: flex;
 	justify-content: center;
+	height: 25px;
 	margin-top: 20px;
 	margin-bottom: 50px;
+}
+.submit button {
+	width: 30%;
+	font-size: 16px;
 }
 label {
 	display: flex;

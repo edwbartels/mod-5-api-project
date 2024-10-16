@@ -250,19 +250,22 @@ const CreateSpot = () => {
 							Competitive pricing can help your listing stand out and rank
 							higher in search results.
 						</p>
-						<input
-							type="number"
-							value={price}
-							onChange={(e) => setPrice(e.target.value)}
-							placeholder="Price per night (USD)"
-							// required
-						/>
+						<div className="create-price-line">
+							<span>$</span>
+							<input
+								type="number"
+								value={price || ''}
+								onChange={(e) => setPrice(e.target.value)}
+								placeholder="Price per night (USD)"
+								// required
+							/>
+						</div>
 						{hasSubmitted && errors.price && (
 							<p className="error">{errors.price}</p>
 						)}
 					</section>
 					<hr></hr>
-					<section>
+					<section className="create-images">
 						<h4>Liven up your spot with photos</h4>
 						<p>Submit a link to at least one photo to publish your spot.</p>
 						<input
