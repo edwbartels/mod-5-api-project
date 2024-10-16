@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const {
 	Spot,
 	User,
@@ -22,6 +21,30 @@ const {
 	validateQueryParams,
 	handleValidationErrors,
 } = require('../../utils/validation');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const avgRatingQuery = isProduction
+	? Sequelize.literal(`(
+		SELECT AVG("air_bnb_schema"."Reviews".stars)
+		FROM "air_bnb_schema"."Reviews"
+		WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+	)`)
+	: Sequelize.literal(`(
+		SELECT AVG("Reviews".stars)
+		FROM "Reviews"
+		WHERE "Reviews"."spotId" = "Spot"."id"
+		)`);
+const numReviewsQuery = isProduction
+	? Sequelize.literal(`(
+	SELECT COUNT("air_bnb_schema"."Reviews".stars)
+	FROM "air_bnb_schema"."Reviews"
+	WHERE "air_bnb_schema"."Reviews"."spotId" = "Spot"."id"
+)`)
+	: Sequelize.literal(`(
+	SELECT COUNT("Reviews".stars)
+	FROM "Reviews"
+	WHERE "Reviews"."spotId" = "Spot"."id"
+)`);
 
 // @ GET all spots
 router.get('/', validateQueryParams, async (req, res, next) => {
@@ -52,6 +75,7 @@ router.get('/', validateQueryParams, async (req, res, next) => {
 	const spots = await Spot.findAll({
 		// where: where,
 		attributes: {
+			include: [[avgRatingQuery, `avgRating`]],
 			// TODO: Fix literal to work in both dev & production
 			// include: [
 			// 	[
@@ -63,16 +87,16 @@ router.get('/', validateQueryParams, async (req, res, next) => {
 			// 		'avgRating',
 			// 	],
 			// ],
-			include: [
-				[
-					Sequelize.literal(`(
-					SELECT AVG("Reviews".stars)
-					FROM "Reviews"
-					WHERE "Reviews"."spotId" = "Spot"."id"
-				)`),
-					'avgRating',
-				],
-			],
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 		SELECT AVG("Reviews".stars)
+			// 		FROM "Reviews"
+			// 		WHERE "Reviews"."spotId" = "Spot"."id"
+			// 	)`),
+			// 		'avgRating',
+			// 	],
+			// ],
 		},
 		include: [
 			{
@@ -133,6 +157,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
 			ownerId: user.id,
 		},
 		attributes: {
+			include: [[avgRatingQuery, `avgRating`]],
+
 			// TODO: Fix literal to work in both dev & production
 			// include: [
 			// 	[
@@ -144,16 +170,16 @@ router.get('/current', requireAuth, async (req, res, next) => {
 			// 		'avgRating',
 			// 	],
 			// ],
-			include: [
-				[
-					Sequelize.literal(`(
-					SELECT AVG("Reviews".stars)
-					FROM "Reviews"
-					WHERE "Reviews"."spotId" = "Spot"."id"
-				)`),
-					'avgRating',
-				],
-			],
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 		SELECT AVG("Reviews".stars)
+			// 		FROM "Reviews"
+			// 		WHERE "Reviews"."spotId" = "Spot"."id"
+			// 	)`),
+			// 		'avgRating',
+			// 	],
+			// ],
 		},
 		include: [
 			{
@@ -201,6 +227,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
 router.get('/:spotId', async (req, res, next) => {
 	const spot = await Spot.findByPk(req.params.spotId, {
 		attributes: {
+			include: [
+				[avgRatingQuery, `avgRating`],
+				[numReviewsQuery, `numReviews`],
+			],
+
 			// TODO: fix literals to function in both dev/prod
 
 			// include: [
@@ -221,24 +252,24 @@ router.get('/:spotId', async (req, res, next) => {
 			// 		'numReviews',
 			// 	],
 			// ],
-			include: [
-				[
-					Sequelize.literal(`(
-				SELECT AVG("Reviews".stars)
-				FROM "Reviews"
-				WHERE "Reviews"."spotId" = "Spot"."id"
-			)`),
-					'avgRating',
-				],
-				[
-					Sequelize.literal(`(
-				SELECT COUNT("Reviews".stars)
-				FROM "Reviews"
-				WHERE "Reviews"."spotId" = "Spot"."id"
-			)`),
-					'numReviews',
-				],
-			],
+			// include: [
+			// 	[
+			// 		Sequelize.literal(`(
+			// 	SELECT AVG("Reviews".stars)
+			// 	FROM "Reviews"
+			// 	WHERE "Reviews"."spotId" = "Spot"."id"
+			// )`),
+			// 		'avgRating',
+			// 	],
+			// 	[
+			// 		Sequelize.literal(`(
+			// 	SELECT COUNT("Reviews".stars)
+			// 	FROM "Reviews"
+			// 	WHERE "Reviews"."spotId" = "Spot"."id"
+			// )`),
+			// 		'numReviews',
+			// 	],
+			// ],
 		},
 		include: [
 			{
