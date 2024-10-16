@@ -8,15 +8,15 @@ function Navigation({ isLoaded }) {
 	const navigate = useNavigate();
 
 	return (
-		<div>
+		<div className="nav-containter">
 			<div className="nav-bar">
 				<NavLink to="/">
-					<img src="/lodgr-trans.png" alt="App Logo" className="logo" />
+					<img src="/lodgr-trans-text.png" alt="App Logo" className="logo" />
 				</NavLink>
 				<div className="nav-items">
 					{sessionUser && (
-						<NavLink to="/spots/create">
-							<button>Create a New Spot</button>
+						<NavLink to="/spots/create" className="create-spot-nav">
+							Create a New Spot
 						</NavLink>
 					)}
 					{isLoaded && <ProfileButton user={sessionUser} />}

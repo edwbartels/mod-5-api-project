@@ -1,0 +1,19 @@
+.manage-container {
+	margin: 10px 50px 10px 50px;
+}
+.grid-container {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	padding-left: 20px;
+	padding-right: 20px;
+	max-width: 96%;
+}
+h1 {
+	margin-bottom: 5px;
+}
+button.manage-create-home {
+	background-color: #666666;
+	font-size: 16px;
+	margin-bottom: 15px;
+}

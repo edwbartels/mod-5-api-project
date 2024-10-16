@@ -22,12 +22,15 @@ const ReviewsDetails = ({ review }) => {
 				<div className="review-date">{formattedDate}</div>
 			</div>
 			<p>{review.review}</p>
-			{review.userId == user?.id && (
-				<OpenModalButton
-					buttonText="Delete"
-					modalComponent={<DeleteReviewModal review={review} />}
-				/>
-			)}
+			<div className="delete-review-button">
+				{' '}
+				{review.userId == user?.id && (
+					<OpenModalButton
+						buttonText="Delete"
+						modalComponent={<DeleteReviewModal review={review} />}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };

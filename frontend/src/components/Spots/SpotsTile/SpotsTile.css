@@ -3,6 +3,7 @@
 	border-radius: 8px;
 	width: 220px;
 	text-align: center;
+	justify-self: center;
 }
 .image-thumbnail {
 	cursor: pointer;
@@ -18,9 +19,9 @@
 }
 .location-rating {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
@@ -28,4 +29,10 @@
 	font-weight: bold;
 	display: flex;
 	align-items: center;
+}
+
+.tile-star {
+	margin-bottom: 3px;
+	margin-right: 2px;
+	margin-top: 0;
 }

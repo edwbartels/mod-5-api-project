@@ -18,29 +18,28 @@ const ManageTile = ({ spot }) => {
 	};
 
 	return (
-		<li>
+		<div className="grid-item">
 			<div className="spot-details" onClick={handleClick}>
-				<ul>
-					<li>
-						<img src={spot.previewImage || null} />
+				<img
+					className="image-thumbnail"
+					title={spot.name}
+					src={spot.previewImage || null}
+				/>
+				<div className="info">
+					<div className="location-rating">
 						<span>
 							{spot.city}, {spot.state}
 						</span>
-					</li>
-					<li>
-						<span>{`${spot.name} `}</span>
-						<span>
-							<FaStar />
+						<span className="star-rating">
+							<FaStar className="tile-star" />
 							{` ${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}
 						</span>
-					</li>
-					<li>
-						<span>
-							{spot.price}
-							<label>night</label>
-						</span>
-					</li>
-				</ul>
+					</div>
+					<span className="price">
+						${spot.price}
+						/night
+					</span>
+				</div>
 			</div>
 			<div className="manage-buttons">
 				<button onClick={handleUpdate}>Update</button>
@@ -51,7 +50,7 @@ const ManageTile = ({ spot }) => {
 					/>
 				}
 			</div>
-		</li>
+		</div>
 	);
 };
 

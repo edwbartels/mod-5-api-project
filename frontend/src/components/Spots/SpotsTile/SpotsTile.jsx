@@ -24,9 +24,7 @@ const SpotsTile = ({ spot }) => {
 						{spot.city}, {spot.state}
 					</span>
 					<span className="star-rating">
-						<div>
-							<FaStar />
-						</div>
+						<FaStar className="tile-star" />
 						<div>{`${spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}`}</div>
 					</span>
 				</div>

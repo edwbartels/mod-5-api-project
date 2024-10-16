@@ -1,0 +1,10 @@
+.manage-buttons {
+	display: flex;
+	margin-top: 10px;
+}
+.manage-buttons button {
+	margin-right: 8px;
+	background-color: #666666;
+	width: 30%;
+	height: 25px;
+}

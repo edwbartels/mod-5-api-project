@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../../context/Modal';
 // import * as reviewActions from '../../../store/reviews';
+import { FaStar } from 'react-icons/fa';
+import { FaRegStar } from 'react-icons/fa';
 import * as spotActions from '../../../store/spots';
 import * as get from '../../../store/selectors';
 
@@ -11,7 +13,8 @@ const PostReviewModal = () => {
 	const dispatch = useDispatch();
 	const spotId = useSelector(get.getSpot).id;
 	const [review, setReview] = useState('');
-	const [stars, setStars] = useState('');
+	const [stars, setStars] = useState(0);
+	const [hover, setHover] = useState(0);
 	const [errors, setErrors] = useState({});
 	const { closeModal } = useModal();
 
@@ -46,15 +49,24 @@ const PostReviewModal = () => {
 					placeholder="Leave your review here..."
 					required
 				/>
-				<input
-					type="number"
-					value={stars}
-					onChange={(e) => setStars(e.target.value)}
-					min="1"
-					max="5"
-					required
-				/>
-				<label>Stars</label>
+				<div className="stars-rating">
+					{[...Array(5)].map((star, index) => {
+						index += 1;
+						return (
+							<span
+								type="button"
+								key={index}
+								className={`star-button`}
+								onClick={() => setStars(index)}
+								onMouseEnter={() => setHover(index)}
+								onMouseLeave={() => setHover(0)}
+							>
+								{index <= (hover || stars) ? <FaStar /> : <FaRegStar />}
+							</span>
+						);
+					})}
+					<span>Stars</span>
+				</div>
 				<button type="submit" disabled={isDisabled}>
 					Submit Your Review
 				</button>

@@ -57,7 +57,9 @@ const SpotsDetails = () => {
 							<div className="price-number">{`$${spot.price}`}</div>
 							<div className="night">night</div>
 						</div>
-						<ReviewsSummary />
+						<div className="review-small">
+							<ReviewsSummary />
+						</div>
 					</div>
 					<button className="reserve" onClick={handleReserve}>
 						Reserve
@@ -65,18 +67,18 @@ const SpotsDetails = () => {
 				</div>
 			</div>
 			<hr className="details-line"></hr>
-			<div>
+			<div className="review-big">
 				<ReviewsSummary />
-				<div className="post-review-button">
-					{user && canReview && (
-						<OpenModalButton
-							buttonText="Post Your Review"
-							modalComponent={<PostReviewModal />}
-						/>
-					)}
-				</div>
-				<ReviewsList />
 			</div>
+			<div className="post-review-button">
+				{user && canReview && (
+					<OpenModalButton
+						buttonText="Post Your Review"
+						modalComponent={<PostReviewModal />}
+					/>
+				)}
+			</div>
+			<ReviewsList />
 		</div>
 	);
 };

@@ -54,11 +54,13 @@
 	border: 2px solid;
 	border-radius: 8px;
 	width: 30%;
+	min-width: 250px;
 }
 .pricing-top {
 	display: flex;
 	justify-content: space-between;
-	width: 80%;
+	width: 90%;
+	/* align-items: flex-end; */
 }
 
 .price {
@@ -79,7 +81,7 @@
 
 button.reserve {
 	padding: 10px 20px;
-	width: 80%;
+	width: 90%;
 }
 
 .details-line {
@@ -90,4 +92,25 @@ button.reserve {
 .post-review-button button {
 	background-color: #666666;
 	padding: 3px 5px;
+}
+.rating-big {
+	display: flex;
+	flex-direction: row;
+	font-size: 24px;
+	width: 25%;
+}
+.review-big {
+	width: 180px;
+	font-size: 24px;
+	font-weight: bold;
+}
+.review-small {
+	width: 120px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.review-summary {
+	display: flex;
+	justify-content: space-evenly;
 }

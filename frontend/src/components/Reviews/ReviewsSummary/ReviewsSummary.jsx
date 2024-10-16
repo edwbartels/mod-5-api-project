@@ -14,9 +14,9 @@ const ReviewsSummary = () => {
 	return (
 		<div className="review-summary">
 			<FaStar />
-			{formattedRating}
+			<span>{formattedRating}</span>
 			<span className="dot"> . </span>
-			{formattedCount}
+			<span>{formattedCount}</span>
 		</div>
 	);
 };

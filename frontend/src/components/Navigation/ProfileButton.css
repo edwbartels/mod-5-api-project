@@ -1,0 +1,87 @@
+/* .user-circle {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	font-size: 32px;
+	background: none;
+	color: #000000;
+	border: none;
+	box-shadow: none;
+	margin-top: 10px;
+	padding-top: 10px;
+	z-index: 1200;
+} */
+.user-circle:hover {
+	background-color: #ffffff;
+	color: #b22222;
+}
+
+.user-bars {
+	font-weight: normal;
+}
+svg {
+	margin-top: 10px;
+}
+
+.profile-dropdown {
+	position: absolute;
+	right: 0;
+	top: 100%;
+	background-color: white;
+	border: 1px solid #ddd;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	z-index: 1100; /* Ensure it overlays content */
+	min-width: 150px; /* Minimum width for dropdown */
+	border-radius: 5px; /* Add slight rounding for a clean look */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	list-style-type: none;
+}
+.profile-dropdown li {
+	margin: 5px 0;
+}
+.profile-dropdown button {
+	width: 100%;
+	background: none;
+	border: none;
+	text-align: left;
+	cursor: pointer;
+	padding: 5px;
+	color: #666666;
+}
+button.dropdown-manage {
+	box-shadow: none;
+	text-align: center;
+}
+button.dropdown-manage:hover {
+	color: #b22222;
+	background-color: #fff;
+}
+
+.dropdown-line {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+li.dropdown-manage-list {
+	margin: 0;
+}
+button.logout-button {
+	text-align: center;
+	border-radius: 20px;
+	height: 20px;
+	background-color: #666666;
+	color: #fff;
+}
+li.user-action {
+	margin-left: 10px;
+}
+.user-action button {
+	box-shadow: none;
+	font-size: 18px;
+}
+
+.user-action button:hover {
+	color: #b22222;
+	background-color: #fff;
+}

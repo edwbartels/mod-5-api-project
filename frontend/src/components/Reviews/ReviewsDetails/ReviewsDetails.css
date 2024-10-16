@@ -14,3 +14,8 @@ p {
 	margin-top: 5px;
 	font-size: 14px;
 }
+
+.delete-review-button button {
+	background-color: #666666;
+	padding: 3px 5px;
+}
