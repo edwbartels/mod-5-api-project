@@ -1,12 +1,13 @@
-// import { useState, useEffect } from 'react';
-import { useSelector /*, useDispatch */ } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 // import { useParams } from 'react-router-dom';
-// import { getReviewsBySpotId } from '../../../store/spots';
+import { getReviewsBySpotId } from '../../../store/spots';
 import ReviewsDetails from '../ReviewsDetails/ReviewsDetails';
 import './ReviewsList.css';
 
 const ReviewsList = () => {
 	// const { spotId } = useParams();
+	const dispatch = useDispatch();
 
 	const reviews = useSelector((state) => state.spots.current?.Reviews);
 	const user = useSelector((state) => state.session.user);

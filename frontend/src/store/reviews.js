@@ -13,6 +13,7 @@ export const deleteReview = (review) => async (dispatch) => {
 	});
 
 	if (response.ok) {
+		dispatch(spotActions.getSpotById(spotId));
 		dispatch(spotActions.getReviewsBySpotId(spotId));
 	}
 };

@@ -185,7 +185,8 @@ export const postReview = (spotId, review) => async (dispatch) => {
 		});
 
 		if (response.ok) {
-			dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId)));
+			dispatch(getSpotById(spotId));
+			dispatch(getReviewsBySpotId(spotId));
 		}
 	} catch (err) {
 		console.error(`Error adding review to spot`, err);
