@@ -7,12 +7,13 @@ import './ReviewsSummary.css';
 
 const ReviewsSummary = () => {
 	const dispatch = useDispatch();
+	const spotId = useSelector((state) => state.spots.current.id);
 	const count = useSelector((state) => state.spots.current.numReviews);
 	const rating = useSelector((state) => state.spots.current.avgStarRating);
 	const formattedCount = count == 1 ? `${count} Review` : `${count} Reviews`;
 	const formattedRating = rating ? rating.toFixed(2) : 'New';
 	useEffect(() => {
-		dispatch(getSpotById);
+		dispatch(getSpotById(spotId));
 	}, [dispatch]);
 
 	return (
