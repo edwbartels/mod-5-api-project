@@ -1,11 +1,14 @@
 /* TODO: Add sitewide styles */
-
+body {
+	font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+}
 button {
 	background-color: #ff5a5f;
 	border: 2px solid #000000;
 	box-shadow: 2px 2px #000000;
 	cursor: pointer;
 	color: #ffffff;
+	font-family: 'Comic Sans MS', 'Comic Sans', cursive;
 }
 
 button:hover {

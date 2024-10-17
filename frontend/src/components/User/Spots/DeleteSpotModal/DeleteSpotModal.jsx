@@ -20,12 +20,15 @@ const DeleteSpotModal = ({ spot }) => {
 	};
 
 	return (
-		<>
+		<div className="modal-box">
 			<h2>Confirm Delete</h2>
 			<div>Are you sure you want to remove this spot from the listings?</div>
 			<button onClick={handleYes}>Yes (Delete Spot)</button>
-			<button onClick={handleNo}> No (Keep Spot)</button>
-		</>
+			<button className="cancel" onClick={handleNo}>
+				{' '}
+				No (Keep Spot)
+			</button>
+		</div>
 	);
 };
 export default DeleteSpotModal;

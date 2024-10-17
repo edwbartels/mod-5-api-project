@@ -8,7 +8,14 @@ const CREATE_SPOT = 'spots/CREATE_SPOT';
 const USER_HAS_REVIEW = 'spots/USER_HAS_REVIEW';
 // const POST_REVIEW = '/spots/POST_REVIEW';
 // const DELETE_SPOT = '/spots/DELETE';
+const DONE = '/spots/DONE';
 
+const doneLoading = () => ({
+	type: DONE,
+});
+export const changeLoading = () => async (dispatch) => {
+	dispatch(doneLoading());
+};
 // @ GET ALL SPOTS
 const loadAll = (spots) => ({
 	type: LOAD_ALL,
@@ -53,7 +60,6 @@ export const getSpotById = (id) => async (dispatch) => {
 	if (response.ok) {
 		const spot = await response.json();
 		spot.Reviews = [];
-		console.log('IN FETCH', spot);
 		dispatch(loadById(spot));
 		return spot;
 	}
@@ -190,6 +196,7 @@ const initialState = {
 	all: [],
 	current: [],
 	hasReview: false,
+	loading: false,
 };
 
 const spotsReducer = (state = initialState, action) => {
@@ -214,13 +221,14 @@ const spotsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				current: action.spot,
+				loading: true,
 			};
 		}
 		case LOAD_REVIEWS_BY_ID: {
 			const newState = { ...state };
 			newState.current.Reviews = { ...action.id };
 			console.log('IN CASE', newState);
-			return { ...newState };
+			return { ...newState, loading: true };
 		}
 		case CREATE_SPOT: {
 			const { id } = action.spot;
@@ -233,6 +241,12 @@ const spotsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				hasReview: action.hasReview,
+			};
+		}
+		case DONE: {
+			return {
+				...state,
+				loading: false,
 			};
 		}
 		// * MAYBE REVISIT

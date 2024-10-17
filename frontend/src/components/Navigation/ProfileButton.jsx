@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
@@ -7,6 +7,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { getUserSpots } from '../../store/selectors';
 import './ProfileButton.css';
 
 function ProfileButton({ user }) {
@@ -14,6 +15,7 @@ function ProfileButton({ user }) {
 	const navigate = useNavigate();
 	const [showMenu, setShowMenu] = useState(false);
 	const ulRef = useRef();
+	const userSpots = useSelector(getUserSpots);
 
 	const toggleMenu = (e) => {
 		e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -50,30 +52,38 @@ function ProfileButton({ user }) {
 
 	return (
 		<>
-			<button className="user-circle" onClick={toggleMenu}>
+			<button
+				data-testid="user-menu-button"
+				className="user-circle"
+				onClick={toggleMenu}
+			>
 				<FaBars className="user-bars" />
 				<FaUserCircle />
 			</button>
 			<div className={ulClassName} ref={ulRef}>
 				{user ? (
-					<>
+					<div data-testid="user-dropdown-menu">
 						<li>Hello, {user.username}</li>
 						<li>{user.email}</li>
 						<hr className="dropdown-line"></hr>
-						{/* <li className="dropddown-manage-list"> */}
-						<button className="dropdown-manage" onClick={manageSpots}>
-							Manage Spots
-						</button>
-						{/* </li> */}
+						{userSpots?.length > 0 ? (
+							<button className="dropdown-manage" onClick={manageSpots}>
+								Manage Spots
+							</button>
+						) : (
+							<button className="dropdown-manage" onClick={manageSpots}>
+								Create a New Spot
+							</button>
+						)}
 						<hr className="dropdown-line"></hr>
 						<li>
 							<button className="logout-button" onClick={logout}>
 								Log Out
 							</button>
 						</li>
-					</>
+					</div>
 				) : (
-					<>
+					<div data-testid="user-dropdown-menu">
 						<li className="user-action">
 							<OpenModalButton
 								buttonText="Sign Up"
@@ -88,7 +98,7 @@ function ProfileButton({ user }) {
 								modalComponent={<LoginFormModal />}
 							/>
 						</li>
-					</>
+					</div>
 				)}
 			</div>
 		</>

@@ -45,6 +45,9 @@ img {
 	font-weight: bold;
 	font-size: 18px;
 }
+.create-spot-nav:hover {
+	color: #b22222;
+}
 .user-circle {
 	align-items: center;
 	font-size: 32px;

@@ -11,7 +11,12 @@ function Navigation({ isLoaded }) {
 		<div className="nav-containter">
 			<div className="nav-bar">
 				<NavLink to="/">
-					<img src="/lodgr-trans-text.png" alt="App Logo" className="logo" />
+					<img
+						data-testid="logo"
+						src="/lodgr-trans-text.png"
+						alt="App Logo"
+						className="logo"
+					/>
 				</NavLink>
 				<div className="nav-items">
 					{sessionUser && (

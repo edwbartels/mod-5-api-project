@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './SpotsDetails.css';
 import { getSpot, getUser } from '../../../store/selectors';
-import { getSpotById, getReviewsBySpotId } from '../../../store/spots';
+import {
+	getSpotById,
+	getReviewsBySpotId,
+	changeLoading,
+} from '../../../store/spots';
 import ReviewsSummary from '../../Reviews/ReviewsSummary';
 import ReviewsList from '../../Reviews/ReviewsList';
 import PostReviewModal from '../../Reviews/PostReviewModal';
@@ -15,45 +19,73 @@ const SpotsDetails = () => {
 	const spot = useSelector(getSpot);
 	const user = useSelector(getUser);
 	const imageArray = useSelector((state) => state.spots.current.SpotImages);
+	const loading = useSelector((state) => {
+		state.spots.loading;
+	});
+	const preview = imageArray?.find((el) => el.preview === true);
+	const newArray =
+		imageArray && [...imageArray]?.filter((el) => el !== preview);
 	const canReview =
 		!useSelector((state) => state.spots?.hasReview) &&
 		user?.id != spot.Owner?.id;
-	console.log('CAN I REVIEW', canReview);
 
 	useEffect(() => {
-		dispatch(getSpotById(spotId)).then(dispatch(getReviewsBySpotId(spotId)));
+		dispatch(getSpotById(spotId))
+			.then(() => dispatch(getReviewsBySpotId(spotId)))
+			.then(() => dispatch(changeLoading()));
 	}, [dispatch, spotId, user]);
 
 	const handleReserve = () => {
-		window.alert(`Feature coming soon.`);
+		window.alert(`Feature coming soon`);
 	};
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 	return (
 		<div className="container">
-			<h1 className="spot-title">{`${spot?.name} `}</h1>
-			<h2 className="spot-location">
+			<h1 data-testid="spot-name" className="spot-title">{`${spot?.name} `}</h1>
+			<h2 data-testid="spot-location" className="spot-location">
 				{spot?.city}, {spot?.state}, {spot?.country}
 			</h2>
 			<div className="image-grid">
 				<img
+					data-testid="spot-large-image"
 					className="image1"
-					src={imageArray ? imageArray[0] : ''}
+					src={imageArray ? preview.url : ''}
 					title="Image One"
 				/>
-				<img src={imageArray ? imageArray[1] : ''} title="Image Two" />
-				<img src={imageArray ? imageArray[2] : ''} title="Image Three" />
-				<img src={imageArray ? imageArray[3] : ''} title="Image Four" />
-				<img src={imageArray ? imageArray[4] : ''} title="Image Five" />
+				<img
+					data-testid="spot-small-image"
+					src={newArray ? newArray[0]?.url : ''}
+					title="Image Two"
+				/>
+				<img
+					data-testid="spot-small-image"
+					src={newArray ? newArray[1]?.url : ''}
+					title="Image Three"
+				/>
+				<img
+					data-testid="spot-small-image"
+					src={newArray ? newArray[2]?.url : ''}
+					title="Image Four"
+				/>
+				<img
+					data-testid="spot-small-image"
+					src={newArray ? newArray[3]?.url : ''}
+					title="Image Five"
+				/>
 			</div>
 			<div className="details-section">
 				<div className="host-section">
-					<h3 className="host-title">
+					<h3 data-testid="spot-host" className="host-title">
 						Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}
 					</h3>
-					<p>{spot?.description}</p>
+					<p data-testid="spot-description">{spot?.description}</p>
 				</div>
-				<div className="pricing-section">
+				<div data-testid="spot-callout-box" className="pricing-section">
 					<div className="pricing-top">
-						<div className="price">
+						<div data-testid="spot-price" className="price">
 							<div className="price-number">{`$${spot.price}`}</div>
 							<div className="night">night</div>
 						</div>
@@ -61,7 +93,11 @@ const SpotsDetails = () => {
 							<ReviewsSummary />
 						</div>
 					</div>
-					<button className="reserve" onClick={handleReserve}>
+					<button
+						data-testid="reserve-button"
+						className="reserve"
+						onClick={handleReserve}
+					>
 						Reserve
 					</button>
 				</div>

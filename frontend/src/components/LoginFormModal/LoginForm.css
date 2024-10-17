@@ -44,18 +44,36 @@
 }
 
 .modal-box button:hover {
-	background-color: #e55346;
+	background-color: #b22222;
 }
 
 .modal-box a {
 	display: block;
 	margin-top: 10px;
 	color: #008080;
-	font-size: 14px;
+	font-size: 16px;
+	font-weight: bold;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 .modal-box a:hover {
 	text-decoration: none;
+}
+
+.modal-box button:disabled {
+	background-color: #fff;
+	color: #666666;
+	box-shadow: 2px 2px #666;
+	border: 2px solid #666;
+}
+.modal-box button:disabled:hover {
+	background-color: #fff;
+}
+
+.modal-box p {
+	color: #b22222;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 10px;
 }

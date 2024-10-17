@@ -7,7 +7,10 @@
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	padding-left: 20px;
 	padding-right: 20px;
-	max-width: 96%;
+	max-width: calc(200px * 5);
+	margin: 0 auto;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 h1 {
 	margin-bottom: 5px;

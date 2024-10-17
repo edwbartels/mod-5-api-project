@@ -36,3 +36,32 @@
 	margin-right: 2px;
 	margin-top: 0;
 }
+.tile-image-container {
+	position: relative;
+	display: inline-block;
+}
+
+.spot-tooltip {
+	visibility: hidden; /* Tooltip is hidden by default */
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 10px;
+	border-radius: 5px;
+
+	/* Position the tooltip */
+	position: absolute;
+	bottom: 70%; /* Tooltip appears above the image */
+	left: 50%;
+	transform: translateX(-50%);
+
+	/* Optional: Add a fade-in effect */
+	opacity: 0;
+	transition: opacity 0.3s;
+	z-index: 1;
+}
+
+.tile-image-container:hover .spot-tooltip {
+	visibility: visible; /* Show the tooltip on hover */
+	opacity: 1;
+}

@@ -14,7 +14,7 @@ const SpotsList = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="grid-container">
+		<div data-testid="spots-list" className="grid-container">
 			{spots.map((spot) => (
 				<SpotsTile key={spot.id} spot={spot} />
 			))}

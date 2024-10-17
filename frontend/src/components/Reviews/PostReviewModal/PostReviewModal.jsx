@@ -40,6 +40,7 @@ const PostReviewModal = () => {
 	return (
 		<div className="modal-box">
 			<h1>How was your stay?</h1>
+			{errors.length > 0 && <p className="error">{errors}</p>}
 			<form onSubmit={handleSubmit}>
 				<textarea
 					type="text"

@@ -27,14 +27,13 @@ function SignupFormModal() {
 					lastName,
 					password,
 				})
-			)
-				.then(closeModal)
-				.catch(async (res) => {
-					const data = await res.json();
-					if (data?.errors) {
-						setErrors(data.errors);
-					}
-				});
+			).then(closeModal);
+			// .catch(async (res) => {
+			// 	const data = await res.json();
+			// 	if (data?.errors) {
+			// 		setErrors(data.errors);
+			// 	}
+			// });
 		}
 		return setErrors({
 			confirmPassword:
@@ -48,61 +47,85 @@ function SignupFormModal() {
 		firstName.length < 1 ||
 		lastName.length < 1 ||
 		password.length < 6 ||
-		confirmPassword.length < 6;
+		confirmPassword.length < 1;
 
 	return (
-		<div className="modal-box">
+		<div data-testid="sign-up-form" className="modal-box">
 			<h1>Sign Up</h1>
 			<form onSubmit={handleSubmit}>
+				{errors.firstName && (
+					<p data-testid="first-name-error-message">{errors.firstName}</p>
+				)}
+				{errors.lastName && (
+					<p data-testid="last-name-error-message">{errors.lastName}</p>
+				)}
+				{errors.email && (
+					<p data-testid="email-error-message">{errors.email}</p>
+				)}
+				{errors.username && (
+					<p data-testid="username-error-message">{errors.username}</p>
+				)}
+				{errors.password && (
+					<p data-testid="password-error-message">{errors.password}</p>
+				)}
+				{errors.confirmPassword && (
+					<p data-testid="confirm-password-error-message">
+						{errors.confirmPassword}
+					</p>
+				)}
 				<input
+					data-testid="first-name-input"
 					type="text"
 					value={firstName}
 					onChange={(e) => setFirstName(e.target.value)}
 					required
 					placeholder="First Name"
 				/>
-				{errors.firstName && <p>{errors.firstName}</p>}
 				<input
+					data-testid="last-name-input"
 					type="text"
 					value={lastName}
 					onChange={(e) => setLastName(e.target.value)}
 					required
 					placeholder="Last Name"
 				/>
-				{errors.lastName && <p>{errors.lastName}</p>}
 				<input
+					data-testid="email-input"
 					type="text"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 					required
 					placeholder="Email"
 				/>
-				{errors.email && <p>{errors.email}</p>}
 				<input
+					data-testid="username-input"
 					type="text"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 					required
 					placeholder="Username"
 				/>
-				{errors.username && <p>{errors.username}</p>}
 				<input
+					data-testid="password-input"
 					type="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					required
 					placeholder="Password"
 				/>
-				{errors.password && <p>{errors.password}</p>}
 				<input
+					data-testid="confirm-password-input"
 					type="password"
 					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
 					required
 					placeholder="Confirm Password"
 				/>
-				{errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-				<button type="submit" disabled={isDisabled}>
+				<button
+					data-testid="form-sign-up-button"
+					type="submit"
+					disabled={isDisabled}
+				>
 					Sign Up
 				</button>
 			</form>

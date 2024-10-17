@@ -52,6 +52,8 @@ svg {
 button.dropdown-manage {
 	box-shadow: none;
 	text-align: center;
+	font-weight: bold;
+	color: #025c83;
 }
 button.dropdown-manage:hover {
 	color: #b22222;

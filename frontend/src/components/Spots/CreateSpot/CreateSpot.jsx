@@ -136,16 +136,18 @@ const CreateSpot = () => {
 	return (
 		<div className="create-spot-page">
 			<div className="create-spot-container">
-				<div className="create-spot-header">
-					<h2>Create a New Spot</h2>
-					<h4>Where&apos;s your place located?</h4>
-					<p className="header-desc">
-						Guests will only get your exact address once they book a
-						reservation.
-					</p>
-				</div>
-				<form onSubmit={handleSubmit}>
-					<section className="create-location">
+				<form data-testid="create-spot-form" onSubmit={handleSubmit}>
+					<div className="create-spot-header">
+						<h2 data-testid="form-title">Create a New Spot</h2>
+					</div>
+					<section data-testid="section-1" className="create-location">
+						<h4 data-testid="section-1-heading">
+							Where&apos;s your place located?
+						</h4>
+						<p data-testid="section-1-caption" className="header-desc">
+							Guests will only get your exact address once they book a
+							reservation.
+						</p>
 						<label>
 							Country
 							{hasSubmitted && errors.country && (
@@ -207,9 +209,11 @@ const CreateSpot = () => {
 						</div>
 					</section>
 					<hr></hr>
-					<section>
-						<h4>Describe your place to guests</h4>
-						<p>
+					<section data-testid="section-2">
+						<h4 data-testid="section-2-heading">
+							Describe your place to guests
+						</h4>
+						<p data-testid="section-2-caption">
 							Mention the best features of your space, any special amenities
 							like fast wifi or parking, and what you love about the
 							neighborhood.
@@ -226,9 +230,11 @@ const CreateSpot = () => {
 						)}
 						<hr></hr>
 					</section>
-					<section>
-						<h4>Create a title for your spot</h4>
-						<p>
+					<section data-testid="section3">
+						<h4 data-testid="section-3-heading">
+							Create a title for your spot
+						</h4>
+						<p data-testid="section-3-caption">
 							Catch guests&apos; attention with a spot title that highlights
 							what makes your place special.
 						</p>
@@ -244,9 +250,11 @@ const CreateSpot = () => {
 						)}
 					</section>
 					<hr></hr>
-					<section>
-						<h4>Set a base price for your spot</h4>
-						<p>
+					<section data-testid="section-4">
+						<h4 data-testid="section-4-heading">
+							Set a base price for your spot
+						</h4>
+						<p data-testid="section-4-caption">
 							Competitive pricing can help your listing stand out and rank
 							higher in search results.
 						</p>
@@ -265,40 +273,46 @@ const CreateSpot = () => {
 						)}
 					</section>
 					<hr></hr>
-					<section className="create-images">
-						<h4>Liven up your spot with photos</h4>
-						<p>Submit a link to at least one photo to publish your spot.</p>
+					<section data-testid="section-5" className="create-images">
+						<h4 data-testid="section-5-heading">
+							Liven up your spot with photos
+						</h4>
+						<p data-testid="section-5-caption">
+							Submit a link to at least one photo to publish your spot.
+						</p>
 						<input
-							type="text"
+							type="url"
 							value={imageOne}
 							onChange={(e) => setImageOne(e.target.value)}
 							placeholder="Preview Image URL"
 							// required
 						/>
 						{hasSubmitted && errors.image && (
-							<p className="error">{errors.image}</p>
+							<p className="error" id="image1">
+								{errors.image}
+							</p>
 						)}
 
 						<input
-							type="text"
+							type="url"
 							value={imageTwo}
 							onChange={(e) => setImageTwo(e.target.value)}
 							placeholder="Image URL"
 						/>
 						<input
-							type="text"
+							type="url"
 							value={imageThree}
 							onChange={(e) => setImageThree(e.target.value)}
 							placeholder="Image URL"
 						/>
 						<input
-							type="text"
+							type="url"
 							value={imageFour}
 							onChange={(e) => setImageFour(e.target.value)}
 							placeholder="Image URL"
 						/>
 						<input
-							type="text"
+							type="url"
 							value={imageFive}
 							onChange={(e) => setImageFive(e.target.value)}
 							placeholder="Image URL"

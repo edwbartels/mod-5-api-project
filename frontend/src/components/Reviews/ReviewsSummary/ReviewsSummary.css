@@ -1,6 +1,15 @@
 .review-summary {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+}
+svg {
+	margin-top: 0;
+	margin-right: 2px;
+}
+.star-plus-number {
+	display: flex;
+	align-items: center;
 }
 .rating-section {
 	display: flex;
@@ -10,6 +19,9 @@
 .dot {
 	display: flex;
 	margin-bottom: 8px;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+.star {
+	padding-top: 2px;
 }
